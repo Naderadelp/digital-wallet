@@ -12,7 +12,7 @@ class ParseFactory
     public static function make(string $bank): BankTransactionParser
     {
         $bank = strtolower(trim($bank));
-        
+
         return match ($bank) {
             'paytech' => new PayTechParser(),
             'acme'    => new AcmeParser(),

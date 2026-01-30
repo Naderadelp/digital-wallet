@@ -11,9 +11,8 @@ class IncomingWebhooksController extends Controller
 {
     public function __invoke($bank)
     {
-        // dd('webhook received for bank: ' . $bank , request()->all());
         $payload = request()->all();
-
+        dd( $payload);
 
         $income = IncomingWebhooks::create([
             'bank' => $bank,

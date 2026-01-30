@@ -11,8 +11,9 @@ class PayTechParser implements BankTransactionParser
     public function parse(string $payload): array
     {
       Log::info('Parsing PayTech payload', [$payload]);
-        $lines = preg_split("/\r\n|\n|\r/", trim($payload));
-
+        // $lines = preg_split("/\r\n|\n|\r/", trim($payload));
+        $lines = explode("#", trim($payload));
+        dd($lines);
         $transactions = [];
 
         foreach ($lines as $line) {

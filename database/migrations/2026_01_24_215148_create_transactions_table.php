@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('refrence')->nullable();
             $table->decimal('amount', 15, 2)->default(0);
             $table->date('transaction_date')->nullable();
+            $table->string('idempotency_key')->unique()->nullable();
             $table->timestamps();
         });
     }

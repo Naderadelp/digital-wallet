@@ -25,13 +25,16 @@ class TransactionDTO
 
     public function handle(): Transaction
     {
+        $idempotency_key = md5($this->bank . '|' . $this->reference);
+        dd($idempotency_key);
         return Transaction::create([
             'bank' => $this->bank ,
             'transaction_date' => $this->date,
             'amount' => $this->amount,
-            'refrence' => $this->reference,
+            'reference' => $this->reference,
             'internal_reference' => $this->internalReference,
             'note' => $this->note,
+            'idempotency_key' => $idempotency_key,
         ]);
     }
 }

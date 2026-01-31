@@ -13,10 +13,10 @@ class Transaction extends Model
     protected $fillable = [
         'bank',
         'note',
-        'refrence',
+        'reference',
         'amount',
-        'currency',
         'transaction_date',
-        'raw_line',
+        'internal_reference',
+        'idempotency_key'
     ];
 }

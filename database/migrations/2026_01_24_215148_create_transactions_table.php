@@ -16,11 +16,10 @@ return new class extends Migration
             $table->id();
             $table->string('bank')->nullable();
             $table->string('note')->nullable();
+            $table->string('internal_reference')->nullable();
             $table->string('refrence')->nullable();
             $table->decimal('amount', 15, 2)->default(0);
-            $table->string('currency')->nullable();
             $table->date('transaction_date')->nullable();
-            $table->text('raw_line')->nullable();
             $table->timestamps();
         });
     }

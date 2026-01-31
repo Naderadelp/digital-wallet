@@ -26,10 +26,11 @@ class TransactionDTO
     public function handle(): Transaction
     {
         return Transaction::create([
-            'bank' => '$this->bank',
+            'bank' => $this->bank ,
             'transaction_date' => $this->date,
             'amount' => $this->amount,
             'refrence' => $this->reference,
+            'internal_reference' => $this->internalReference,
             'note' => $this->note,
         ]);
     }

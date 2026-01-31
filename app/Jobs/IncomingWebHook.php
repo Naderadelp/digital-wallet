@@ -35,6 +35,11 @@ class IncomingWebHook implements ShouldQueue
         try {
                 $parser = ParseFactory::make($webhook->bank);
                 $transactions = $parser->parse($webhook->payload);
+
+                foreach ($transactions as $transaction) {
+                    $transaction->handle();
+                }
+
                 $webhook->update([
                 'status'       => 'done',
                 'processed_at' => now(),

@@ -2,6 +2,8 @@
 
 namespace App\Transactions\DTO;
 
+use App\Models\Transaction;
+
 class TransactionDTO
 {
     public ?string $date = null;
@@ -9,6 +11,7 @@ class TransactionDTO
     public ?string $reference = null;
     public ?string $note = null;
     public ?string $internalReference = null;
+    public ?string $bank = null;
 
     public function __construct(array $data = [])
     {
@@ -17,5 +20,17 @@ class TransactionDTO
         $this->reference = $data['reference'] ?? null;
         $this->note = $data['note'] ?? null;
         $this->internalReference = $data['internalReference'] ?? null;
+        $this->bank = $data['bank'] ?? null;
+    }
+
+    public function handle(): Transaction
+    {
+        return Transaction::create([
+            'bank' => '$this->bank',
+            'transaction_date' => $this->date,
+            'amount' => $this->amount,
+            'refrence' => $this->reference,
+            'note' => $this->note,
+        ]);
     }
 }

@@ -18,6 +18,10 @@ class IncomingWebhooks extends Model
         'processed_at',
     ];
 
+    protected $casts = [
+        // 'payload' => 'array',
+    ];
+
     public $timestamps = false;
 
 }

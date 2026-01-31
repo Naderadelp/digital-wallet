@@ -11,9 +11,7 @@ class PayTechParser implements BankTransactionParser
     public function parse(string $payload): array
     {
       Log::info('Parsing PayTech payload', [$payload]);
-        // $lines = preg_split("/\r\n|\n|\r/", trim($payload));
-        $lines = explode("#", trim($payload));
-        dd($lines);
+        $lines = preg_split("/\r\n|\n|\r/", trim($payload));
         $transactions = [];
 
         foreach ($lines as $line) {
@@ -24,21 +22,18 @@ class PayTechParser implements BankTransactionParser
             LOg::info('Parsed parts', [$parts]);
 
 
-            [$amountPart, $reference , $metaPart] = $parts;
-            Log::info('amount part',  [$amountPart]);
+            [$part1, $reference , $part3] = $parts;
+            Log::info('amount part',  [$part1]);
             Log::info('reference part',  [$reference]);
-            Log::info('meta part',  [$metaPart]);
+            Log::info('meta part',  [$part3]);
 
-            $date   = substr($amountPart, 0, 8);
-            $amount = str_replace(',', '.', substr($amountPart, 8));
+            $date = substr($part1, 0, 8);
+            $amount = (float) str_replace(',', '.', substr($part1, 8));
 
             Log::info('Parsed date and amount', [$date , $amount]);
 
-            $note = null;
-            $internalReference = null;
-
-            if ($metaPart) {
-                $pairs = explode('/', $metaPart);
+            if ($part3) {
+                $pairs = explode('/', $part3);
 
                 for ($i = 0; $i < count($pairs); $i += 2) {
                     if ($pairs[$i] === 'note') {
@@ -57,6 +52,7 @@ class PayTechParser implements BankTransactionParser
                 'reference'         => $reference,
                 'note'              => $note,
                 'internalReference' => $internalReference,
+                'bank'              => 'PayTech',
             ]);
         }
         Log::info('Parsed transactions', [$transactions]);

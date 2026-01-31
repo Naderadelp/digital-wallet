@@ -9,4 +9,14 @@ class Transaction extends Model
 {
     /** @use HasFactory<\Database\Factories\TransactionFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'bank',
+        'note',
+        'refrence',
+        'amount',
+        'currency',
+        'transaction_date',
+        'raw_line',
+    ];
 }
